@@ -1,4 +1,4 @@
-const EmptyData: React.FC = () => {
+const Loader: React.FC = () => {
   return (
     <tr>
       <td colSpan={8} className="text-center">
@@ -8,4 +8,4 @@ const EmptyData: React.FC = () => {
   );
 };
 
-export default EmptyData;
+export default Loader;
