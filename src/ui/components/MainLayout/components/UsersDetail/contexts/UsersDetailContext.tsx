@@ -1,7 +1,7 @@
 import { type IUser } from '@/domain/models/IUser';
 import { createContext, useState } from 'react';
 
-interface IUsersTableContext {
+interface IUsersDetailContext {
   isLoading: boolean;
   setIsLoading: (isLoading: boolean) => void;
   errorMessage: string | undefined;
@@ -10,7 +10,7 @@ interface IUsersTableContext {
   setUsers: (users: IUser[]) => void;
 }
 
-const UsersTableContext = createContext<IUsersTableContext>({
+const UsersDetailContext = createContext<IUsersDetailContext>({
   isLoading: true,
   setIsLoading: () => {},
   errorMessage: undefined,
@@ -19,11 +19,11 @@ const UsersTableContext = createContext<IUsersTableContext>({
   setUsers: () => {}
 });
 
-interface UsersTableProviderProps {
+interface UsersDetailProviderProps {
   children: React.ReactNode;
 }
 
-const UsersTableProvider: React.FC<UsersTableProviderProps> = ({ children }) => {
+const UsersDetailProvider: React.FC<UsersDetailProviderProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
   const [users, setUsers] = useState<IUser[]>([]);
@@ -37,7 +37,7 @@ const UsersTableProvider: React.FC<UsersTableProviderProps> = ({ children }) => 
     setUsers
   };
 
-  return <UsersTableContext.Provider value={contextValue}>{children}</UsersTableContext.Provider>;
+  return <UsersDetailContext.Provider value={contextValue}>{children}</UsersDetailContext.Provider>;
 };
 
-export { UsersTableContext, UsersTableProvider };
+export { UsersDetailContext, UsersDetailProvider };

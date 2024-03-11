@@ -1,7 +1,7 @@
 import { GlobalContext } from '@/ui/contexts/GlobalContext';
 import { type IHookResponse } from '@/ui/shared/types/types';
 import { useContext, useEffect, useState } from 'react';
-import { UsersTableContext } from './contexts/UsersTableContext';
+import { UsersDetailContext } from './contexts/UsersDetailContext';
 import { getUser } from '@/application/getUser/getUser';
 import { type IUserRepository } from '@/domain/ports/IUserRepository';
 import { createApiUserRepository } from '@/infrastructure/dataSource/ApiUserRepository';
@@ -10,19 +10,20 @@ import { createEmptyUserRepository } from '@/infrastructure/dataSource/EmptyRepo
 import { createHardcodedUserRepository } from '@/infrastructure/dataSource/HardcodedUserRepository';
 import { DataSources } from '@/ui/shared/enums/enums';
 import { createApiUserWithCacheRepository } from '@/infrastructure/dataSource/ApiUserWithCacheRepository';
+import { IUser } from '@/domain/models/IUser';
 
-const useUsersTable = (): IHookResponse => {
+const useUserDetail = (): IHookResponse => {
   const { dataSource, isCacheEnabled, cacheActions } = useContext(GlobalContext);
-  const { isLoading, users, errorMessage, setErrorMessage, setUsers, setIsLoading } = useContext(UsersTableContext);
-  const [userId, setUserId] = useState<string | undefined>(undefined);
+  const { isLoading, users, errorMessage, setErrorMessage, setUsers, setIsLoading } = useContext(UsersDetailContext);
+  /* const [userId, setUserId] = useState<string | undefined>(undefined); */
 
-  useEffect(() => {
+  /*  useEffect(() => {
     const pathName = window.location.pathname;
     const idFromUrl = pathName.split('/')[1];
     setUserId(idFromUrl);
-  }, []);
+  }, []); */
 
-  useEffect(() => {
+  /* useEffect(() => {
     const dataFetcher = async (): Promise<void> => {
       setIsLoading(true);
       setErrorMessage(undefined);
@@ -40,6 +41,9 @@ const useUsersTable = (): IHookResponse => {
 
         const userRepository = userRepositoryMap[dataSource as DataSources]();
 
+        console.log('userId');
+        console.log(userId);
+
         const userFetched = await getUser(userRepository, userId)();
         console.log(userFetched); // TODO:
         // setUsers(usersFetched);
@@ -54,11 +58,49 @@ const useUsersTable = (): IHookResponse => {
     if (userId !== undefined) {
       void dataFetcher();
     }
-  }, [dataSource, errorMessage, userId]);
+  }, [dataSource, errorMessage, userId]); */
+
+  /* 
+  const fetchUser = async (userId: string): Promise<IUser | undefined> => {
+    const userRepositoryMap: { [key in DataSources]: () => IUserRepository } = {
+      [DataSources.EXTERNAL]:
+        isCacheEnabled && cacheActions !== undefined
+          ? () => createApiUserWithCacheRepository({ cacheActions })
+          : createApiUserRepository,
+      [DataSources.INTERNAL]: createHardcodedUserRepository,
+      [DataSources.EMPTY]: createEmptyUserRepository,
+      [DataSources.BROKEN]: createBrokenRepository
+    };
+
+    const userRepository = userRepositoryMap[dataSource as DataSources]();
+
+    console.log('fetchUser hook');
+    console.log('userId');
+    console.log(userId);
+    console.log(userRepository);
+
+    //const userFetched = await getUser(userRepository, userId)();
+
+    /* const res = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}`);
+    const userFetched = res.json(); 
+
+    const userFetched: IUser = {
+      website: 'asdasdas',
+      id: 165,
+      username: 'asdasd',
+      phone: 'asdasda',
+      name: 'My Name',
+      address: { city: 'asd', geo: { lat: 'asd', lng: 'ahsida' }, street: 'aisdas', suite: 'asdas', zipcode: 'asd' },
+      company: { bs: 'haosd', name: 'ashidas', catchPhrase: 'asidasd' },
+      email: 'haosdlasda'
+    };
+
+    return userFetched;
+  }; */
 
   return {
-    states: { users, errorMessage, isLoading, userId }
+    states: { dataSource, users, errorMessage, isCacheEnabled, cacheActions, isLoading /* userId */ }
   };
 };
 
-export default useUsersTable;
+export default useUserDetail;

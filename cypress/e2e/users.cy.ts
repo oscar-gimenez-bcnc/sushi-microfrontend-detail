@@ -1,6 +1,6 @@
 const path = require('path');
 
-describe('UsersTable spec', () => {
+describe('UsersDetail spec', () => {
   beforeEach(() => {
     cy.visit('http://localhost:9005/');
   });
