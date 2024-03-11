@@ -98,8 +98,14 @@ const useUserDetail = (): IHookResponse => {
     return userFetched;
   }; */
 
+  const fetchUser = async (userId: any): Promise<IUser | undefined> => {
+    const userFetched = await getUser(createApiUserRepository(), userId)();
+    return userFetched;
+  };
+
   return {
-    states: { dataSource, users, errorMessage, isCacheEnabled, cacheActions, isLoading /* userId */ }
+    states: { dataSource, users, errorMessage, isCacheEnabled, cacheActions, isLoading /* userId */ },
+    actions: { fetchUser }
   };
 };
 
