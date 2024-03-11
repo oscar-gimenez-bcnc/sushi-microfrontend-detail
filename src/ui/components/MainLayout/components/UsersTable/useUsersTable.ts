@@ -1,8 +1,8 @@
 import { GlobalContext } from '@/ui/contexts/GlobalContext';
 import { type IHookResponse } from '@/ui/shared/types/types';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { UsersTableContext } from './contexts/UsersTableContext';
-import { listUsers } from '@/application/listUsers/listUsers';
+import { getUser } from '@/application/getUser/getUser';
 import { type IUserRepository } from '@/domain/ports/IUserRepository';
 import { createApiUserRepository } from '@/infrastructure/dataSource/ApiUserRepository';
 import { createBrokenRepository } from '@/infrastructure/dataSource/BrokenRepository';
@@ -14,6 +14,13 @@ import { createApiUserWithCacheRepository } from '@/infrastructure/dataSource/Ap
 const useUsersTable = (): IHookResponse => {
   const { dataSource, isCacheEnabled, cacheActions } = useContext(GlobalContext);
   const { isLoading, users, errorMessage, setErrorMessage, setUsers, setIsLoading } = useContext(UsersTableContext);
+  const [userId, setUserId] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    const pathName = window.location.pathname;
+    const idFromUrl = pathName.split('/')[1];
+    setUserId(idFromUrl);
+  }, []);
 
   useEffect(() => {
     const dataFetcher = async (): Promise<void> => {
@@ -33,8 +40,9 @@ const useUsersTable = (): IHookResponse => {
 
         const userRepository = userRepositoryMap[dataSource as DataSources]();
 
-        const usersFetched = await listUsers(userRepository)();
-        setUsers(usersFetched);
+        const userFetched = await getUser(userRepository, userId)();
+        console.log(userFetched); // TODO:
+        // setUsers(usersFetched);
       } catch (err) {
         setUsers([]);
         const message = err instanceof Error ? err.message : 'No information provided.';
@@ -43,11 +51,13 @@ const useUsersTable = (): IHookResponse => {
         setIsLoading(false);
       }
     };
-    void dataFetcher();
-  }, [dataSource, errorMessage]);
+    if (userId !== undefined) {
+      void dataFetcher();
+    }
+  }, [dataSource, errorMessage, userId]);
 
   return {
-    states: { users, errorMessage, isLoading }
+    states: { users, errorMessage, isLoading, userId }
   };
 };
 

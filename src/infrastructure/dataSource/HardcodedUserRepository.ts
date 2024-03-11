@@ -2,56 +2,32 @@ import { type IUser } from '@/domain/models/IUser';
 import { type IUserRepository } from '@/domain/ports/IUserRepository';
 
 export const createHardcodedUserRepository = (): IUserRepository => {
-  const list = async (): Promise<IUser[]> => {
-    return [
-      {
-        id: 1,
-        name: 'Bruce',
-        username: 'Batman',
-        email: 'bruce@batman.com',
-        address: {
-          street: 'Street 1',
-          suite: 'Suite 2',
-          city: 'Gotham',
-          zipcode: '92998-3874',
-          geo: {
-            lat: '-37.3159',
-            lng: '81.1496'
-          }
-        },
-        phone: '1-770-736-8031 x56442',
-        website: 'batman.com',
-        company: {
-          name: 'DC',
-          catchPhrase: 'Comics',
-          bs: 'Read for fun'
+  const get = async (): Promise<IUser> => {
+    const user = {
+      id: 1,
+      name: 'Bruce',
+      username: 'Batman',
+      email: 'bruce@batman.com',
+      address: {
+        street: 'Street 1',
+        suite: 'Suite 2',
+        city: 'Gotham',
+        zipcode: '92998-3874',
+        geo: {
+          lat: '-37.3159',
+          lng: '81.1496'
         }
       },
-      {
-        id: 2,
-        name: 'Logan',
-        username: 'Wolverine',
-        email: 'logan@wolverine.com',
-        address: {
-          street: 'Street 10',
-          suite: 'Suite 30',
-          city: 'New York',
-          zipcode: '159326-9845',
-          geo: {
-            lat: '-47.9587',
-            lng: '91.5312'
-          }
-        },
-        phone: '666-951-5329 a91235',
-        website: 'wolverine.com',
-        company: {
-          name: 'Marvel',
-          catchPhrase: 'Comics',
-          bs: 'Books and Movies'
-        }
+      phone: '1-770-736-8031 x56442',
+      website: 'batman.com',
+      company: {
+        name: 'DC',
+        catchPhrase: 'Comics',
+        bs: 'Read for fun'
       }
-    ];
+    };
+    return user;
   };
 
-  return { list };
+  return { get };
 };

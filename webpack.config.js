@@ -11,14 +11,16 @@ module.exports = {
   devtool: 'source-map',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/'
   },
   devServer: {
     client: {
       overlay: false
     },
     compress: true,
-    port: 9005
+    port: 9005,
+    historyApiFallback: true
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.jsx'],

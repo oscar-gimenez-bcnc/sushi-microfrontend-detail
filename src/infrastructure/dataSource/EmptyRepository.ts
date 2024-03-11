@@ -3,9 +3,9 @@ import { type IUserRepository } from '@/domain/ports/IUserRepository';
 
 // This adapter simulates an empty data source
 export const createEmptyUserRepository = (): IUserRepository => {
-  const list = async (): Promise<IUser[]> => {
-    return [];
+  const get = async (): Promise<IUser> => {
+    throw new Error(`You should know it ;-), you are pointing to a empty user.`);
   };
 
-  return { list };
+  return { get };
 };
