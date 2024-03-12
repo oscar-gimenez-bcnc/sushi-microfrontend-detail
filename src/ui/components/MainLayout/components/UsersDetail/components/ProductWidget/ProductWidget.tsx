@@ -1,5 +1,5 @@
-import { IProduct } from '@/domain/models/IProduct';
-import { FC, use } from 'react';
+import { type IProduct } from '@/domain/models/IProduct';
+import { type FC, use } from 'react';
 import { UsersDetailContext } from '../../contexts/UsersDetailContext';
 
 interface ProductWidgetProps {
@@ -14,7 +14,7 @@ const ProductWidget: FC<ProductWidgetProps> = ({ productPromise }) => {
   return (
     <div className="card card-side bg-gray-100 shadow-xl">
       <div className="flex flex-col">
-        <h1 className="text-center text-2xl font-bold bg-green-200 rounded-lg mx-3 py-1 text-gray-800">
+        <h1 className="mx-3 rounded-lg bg-green-200 py-1 text-center text-2xl font-bold text-gray-800">
           Favourite product
         </h1>
 
@@ -31,7 +31,7 @@ const ProductWidget: FC<ProductWidgetProps> = ({ productPromise }) => {
 
             <p>{product?.description}</p>
 
-            <div className="carousel carousel-center max-w-md p-4 space-x-4 bg-neutral rounded-box">
+            <div className="carousel carousel-center max-w-md space-x-4 rounded-box bg-neutral p-4">
               {product?.images.map((image, index) => {
                 return (
                   <div
@@ -44,7 +44,7 @@ const ProductWidget: FC<ProductWidgetProps> = ({ productPromise }) => {
                 );
               })}
             </div>
-            <div className="flex justify-center w-full py-2 gap-2">
+            <div className="flex w-full justify-center gap-2 py-2">
               {product?.images.map((image, index) => {
                 return (
                   <a key={`link-image-${index}`} href={`#product-image-${index}`} className="btn btn-xs">

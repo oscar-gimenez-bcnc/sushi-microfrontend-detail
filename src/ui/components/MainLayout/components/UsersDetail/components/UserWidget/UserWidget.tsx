@@ -1,10 +1,10 @@
-import { IUser } from '@/domain/models/IUser';
+import { type IUser } from '@/domain/models/IUser';
 import IconEnvelope from '@/ui/components/shared/icons/IconEnvelope';
 import IconUser from '@/ui/components/shared/icons/IconUser';
-import { FC, use, useContext } from 'react';
+import { type FC, use } from 'react';
 import useUserDetail from '../../useUserDetail';
 import IconBuildingOffice2 from '@/ui/components/shared/icons/IconBuildingOffice2';
-import IconPhone from '@/ui/components/shared/icons/IconDownload copy';
+import IconPhone from '@/ui/components/shared/icons/IconPhone';
 import IconGlobeAlt from '@/ui/components/shared/icons/IconGlobeAlt';
 
 interface UserWidgetProps {
@@ -23,9 +23,9 @@ const UserWidget: FC<UserWidgetProps> = ({ userPromise }) => {
   console.log(user);
 
   return (
-    <div className="card bg-gray-100 shadow-xl border border-gray-200">
+    <div className="card border border-gray-200 bg-gray-100 shadow-xl">
       <div className="flex flex-col">
-        <h1 className="text-center text-2xl font-bold bg-indigo-300 rounded-lg mx-3 py-1 text-gray-800">
+        <h1 className="mx-3 rounded-lg bg-indigo-300 py-1 text-center text-2xl font-bold text-gray-800">
           Featured photographer
         </h1>
         <div>

@@ -1,5 +1,5 @@
-import { IProduct } from '@/domain/models/IProduct';
-import { IProductRepository } from '@/domain/ports/IProductRepository';
+import { type IProduct } from '@/domain/models/IProduct';
+import { type IProductRepository } from '@/domain/ports/IProductRepository';
 
 export const createApiProductRepository = (): IProductRepository => {
   const get = async (productId: string): Promise<IProduct | undefined> => {
