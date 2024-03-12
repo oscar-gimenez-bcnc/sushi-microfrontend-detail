@@ -14,7 +14,7 @@ import { IUser } from '@/domain/models/IUser';
 
 const useUserDetail = (): IHookResponse => {
   const { dataSource, isCacheEnabled, cacheActions } = useContext(GlobalContext);
-  const { isLoading, users, errorMessage, setErrorMessage, setUsers, setIsLoading } = useContext(UsersDetailContext);
+  const { isLoading, user, errorMessage, setErrorMessage, setUser, setIsLoading } = useContext(UsersDetailContext);
   /* const [userId, setUserId] = useState<string | undefined>(undefined); */
 
   /*  useEffect(() => {
@@ -104,8 +104,8 @@ const useUserDetail = (): IHookResponse => {
   };
 
   return {
-    states: { dataSource, users, errorMessage, isCacheEnabled, cacheActions, isLoading /* userId */ },
-    actions: { fetchUser }
+    states: { dataSource, user, errorMessage, isCacheEnabled, cacheActions, isLoading /* userId */ },
+    actions: { fetchUser, setUser }
   };
 };
 

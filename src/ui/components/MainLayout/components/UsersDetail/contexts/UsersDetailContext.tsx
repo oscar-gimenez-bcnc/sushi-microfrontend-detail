@@ -6,8 +6,8 @@ interface IUsersDetailContext {
   setIsLoading: (isLoading: boolean) => void;
   errorMessage: string | undefined;
   setErrorMessage: (errorMessage: string | undefined) => void;
-  users: IUser[];
-  setUsers: (users: IUser[]) => void;
+  user?: IUser;
+  setUser: (users: IUser) => void;
 }
 
 const UsersDetailContext = createContext<IUsersDetailContext>({
@@ -15,8 +15,8 @@ const UsersDetailContext = createContext<IUsersDetailContext>({
   setIsLoading: () => {},
   errorMessage: undefined,
   setErrorMessage: () => {},
-  users: [],
-  setUsers: () => {}
+  user: undefined,
+  setUser: () => {}
 });
 
 interface UsersDetailProviderProps {
@@ -26,15 +26,15 @@ interface UsersDetailProviderProps {
 const UsersDetailProvider: React.FC<UsersDetailProviderProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
-  const [users, setUsers] = useState<IUser[]>([]);
+  const [user, setUser] = useState<IUser>();
 
   const contextValue = {
     isLoading,
     setIsLoading,
     errorMessage,
     setErrorMessage,
-    users,
-    setUsers
+    user,
+    setUser
   };
 
   return <UsersDetailContext.Provider value={contextValue}>{children}</UsersDetailContext.Provider>;
