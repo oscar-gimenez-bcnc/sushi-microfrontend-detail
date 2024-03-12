@@ -8,6 +8,8 @@ import { fetchProduct, fetchUser } from '@/ui/shared/lib/helper';
 import { createApiProductRepository } from '@/infrastructure/dataSource/ApiProductRepository';
 import ProductWidget from './components/ProductWidget/ProductWidget';
 import UserWidget from './components/UserWidget/UserWidget';
+import ProductWidgetSkeleton from './components/ProductWidget/Skeleton';
+import UserWidgetSkeleton from './components/UserWidget/Skeleton';
 
 interface User2Props {
   userId: string;
@@ -29,14 +31,14 @@ const UserDetail: React.FC = () => {
       <h1>
         Showing detail of ID: <kbd className="kbd kbd-sm">{id}</kbd>
       </h1>
-      <div className="flex w-full">
+      <div className="flex w-full gap-8 mt-4">
         <div className="flex-1">
-          <Suspense fallback={<Loader />}>
+          <Suspense fallback={<UserWidgetSkeleton />}>
             <UserWidget userPromise={userPromise} />
           </Suspense>
         </div>
         <div className="flex-1">
-          <Suspense fallback={<Loader />}>
+          <Suspense fallback={<ProductWidgetSkeleton />}>
             <ProductWidget productPromise={productPromise} />
           </Suspense>
         </div>
