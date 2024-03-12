@@ -11,15 +11,14 @@ module.exports = {
   devtool: 'source-map',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: '/'
+    path: path.resolve(__dirname, 'dist')
   },
   devServer: {
     client: {
       overlay: false
     },
     compress: true,
-    port: 9005,
+    port: 9004,
     historyApiFallback: true
   },
   resolve: {
@@ -58,14 +57,6 @@ module.exports = {
         './SushiMicroFrontendDetail': './src/App.tsx'
       },
       shared: {
-        react: {
-          singleton: true,
-          requiredVersion: dependencies.react
-        },
-        'react-dom': {
-          singleton: true,
-          requiredVersion: dependencies['react-dom']
-        },
         'react-error-boundary': {
           singleton: true,
           requiredVersion: dependencies['react-error-boundary']
