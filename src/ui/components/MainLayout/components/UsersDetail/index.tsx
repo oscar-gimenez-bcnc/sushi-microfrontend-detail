@@ -19,9 +19,14 @@ const UserDetail: React.FC = () => {
 
   return (
     <>
-      <h1>
-        Showing detail of ID: <kbd className="kbd kbd-sm">{id}</kbd>
-      </h1>
+      <div className="mt-4 flex w-full flex-row gap-8">
+        <h1>
+          Showing detail of ID: <kbd className="kbd kbd-sm">{id}</kbd>
+        </h1>
+        <a href="/">
+          <span>Volver</span>
+        </a>
+      </div>
       <div className="mt-4 flex w-full gap-8">
         <div className="flex-1">
           <Suspense fallback={<UserWidgetSkeleton />}>

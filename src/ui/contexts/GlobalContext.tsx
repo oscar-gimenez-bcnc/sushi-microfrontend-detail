@@ -1,47 +1,21 @@
-import { createContext, useState } from 'react';
-import { DataSources, DownloadMethods } from '../shared/enums/enums';
+import { createContext } from 'react';
 
 interface IGlobalContext {
-  dataSource: string;
-  setDataSource: (dataSource: string) => void;
-  downloadMethod: string;
-  setDownloadMethod: (downloadMethod: string) => void;
-  isCacheEnabled: boolean;
-  cacheActions?: ICacheActions;
+  isMicrofrontend: boolean;
 }
 
 const GlobalContext = createContext<IGlobalContext>({
-  dataSource: DataSources.EXTERNAL,
-  setDataSource: () => {},
-  downloadMethod: DownloadMethods.JSON,
-  setDownloadMethod: () => {},
-  isCacheEnabled: false,
-  cacheActions: {
-    getUsersCacheData: () => undefined,
-    renewUsersExpiryDate: () => undefined,
-    getUserCache: () => {},
-    setUserCache: () => {},
-    clearUsersCache: () => {}
-  }
+  isMicrofrontend: false
 });
 
 interface GlobalProviderProps {
   children: React.ReactNode;
-  isCacheEnabled: boolean;
-  cacheActions?: ICacheActions;
+  isMicrofrontend: boolean;
 }
 
-const GlobalProvider: React.FC<GlobalProviderProps> = ({ children, isCacheEnabled, cacheActions }) => {
-  const [dataSource, setDataSource] = useState<string>(DataSources.EXTERNAL);
-  const [downloadMethod, setDownloadMethod] = useState<string>(DownloadMethods.JSON);
-
+const GlobalProvider: React.FC<GlobalProviderProps> = ({ children, isMicrofrontend }) => {
   const contextValue = {
-    dataSource,
-    setDataSource,
-    downloadMethod,
-    setDownloadMethod,
-    isCacheEnabled,
-    cacheActions
+    isMicrofrontend
   };
 
   return <GlobalContext.Provider value={contextValue}>{children}</GlobalContext.Provider>;
