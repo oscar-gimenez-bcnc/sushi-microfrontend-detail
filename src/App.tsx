@@ -9,7 +9,9 @@ interface AppProps {
 }
 
 const App: React.FC<AppProps> = (props: AppProps) => {
-  const isMicrofrontend = props.isMicrofrontend === true;
+  const isMicrofrontend = !!(props.isMicrofrontend ?? false);
+  console.log('IS MICROF');
+  console.log(isMicrofrontend);
 
   return (
     <div className="container mx-auto">

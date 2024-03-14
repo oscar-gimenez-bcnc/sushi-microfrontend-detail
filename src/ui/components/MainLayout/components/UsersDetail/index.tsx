@@ -9,11 +9,17 @@ import ProductWidget from './components/ProductWidget/ProductWidget';
 import UserWidget from './components/UserWidget/UserWidget';
 import ProductWidgetSkeleton from './components/ProductWidget/Skeleton';
 import UserWidgetSkeleton from './components/UserWidget/Skeleton';
+import useUserDetail from './useUserDetail';
+import UserWidgetClassicSkeleton from './components/UserWidgetClassic/Skeleton';
+import UserWidgetClassic from './components/UserWidgetClassic/UserWidgetClassic';
 
 const UserDetail: React.FC = () => {
-  const pathName = window.location.pathname;
-  const id = pathName.split('/')[1];
+  const {
+    states: { isMicrofrontend }
+  } = useUserDetail();
 
+  const pathName = window.location.pathname;
+  const id = isMicrofrontend === true ? pathName.split('/')[2] : pathName.split('/')[1];
   const userPromise = fetchUser(createApiUserRepository(), id);
   const productPromise = fetchProduct(createApiProductRepository(), id);
 
@@ -29,8 +35,11 @@ const UserDetail: React.FC = () => {
       </div>
       <div className="mt-4 flex w-full gap-8">
         <div className="flex-1">
-          <Suspense fallback={<UserWidgetSkeleton />}>
+          {/*  <Suspense fallback={<UserWidgetSkeleton />}>
             <UserWidget userPromise={userPromise} />
+          </Suspense> */}
+          <Suspense fallback={<UserWidgetClassicSkeleton />}>
+            <UserWidgetClassic id={id} />
           </Suspense>
         </div>
         <div className="flex-1">
